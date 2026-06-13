@@ -1,13 +1,1603 @@
 <!doctype html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>Eduversum — Pensar. Comprender. Transformar.</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS v3 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind Configuration matching the Futuristic Metallic Blue theme -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-cyan': '#00f2ff',
+              'brand-yellow': '#ffe600',
+              'brand-green': '#39ff14',
+              'brand-red': '#ff004c',
+              'brand-pink': '#ff00bc',
+              slate: {
+                950: '#020617'
+              }
+            },
+            fontFamily: {
+              display: ['"Space Grotesk"', 'sans-serif'],
+              sans: ['Inter', 'sans-serif'],
+              hand: ['Caveat', 'cursive'],
+              mono: ['"JetBrains Mono"', 'monospace']
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom Cyberpunk/Futuristic Embedded CSS rules -->
+    <style>
+      /* Custom background mesh and glowing utilities in Futuristic Metallic Blue color space */
+      .mesh-bg {
+        background-color: #020617; /* Ultra deep metallic blue base */
+        background-image: 
+          linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+          radial-gradient(at 0% 0%, rgba(0, 242, 255, 0.18) 0px, transparent 40%),
+          radial-gradient(at 100% 0%, rgba(255, 0, 188, 0.12) 0px, transparent 40%),
+          radial-gradient(at 50% 100%, rgba(57, 255, 20, 0.08) 0px, transparent 50%);
+        background-size: 30px 30px, 30px 30px, auto, auto, auto;
+      }
+
+      .text-stroke-cyan {
+        -webkit-text-stroke: 1px rgba(0, 242, 255, 0.6);
+        text-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+      }
+
+      /* Premium Metallic Cybernetic Borders and Glassmorphism */
+      .cyber-panel-blue {
+        background: linear-gradient(135deg, rgba(3, 12, 34, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        border: 1px solid rgba(0, 242, 255, 0.15);
+        box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.05), 0 10px 40px rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(20px);
+      }
+
+      .cyber-panel-blue:hover {
+        border-color: rgba(0, 242, 255, 0.4);
+        box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.1), 0 0 30px rgba(0, 242, 255, 0.15);
+      }
+
+      .cyber-panel-red {
+        background: linear-gradient(135deg, rgba(20, 3, 10, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        border: 1px solid rgba(255, 0, 76, 0.15);
+        box-shadow: inset 0 0 20px rgba(255, 0, 76, 0.05), 0 10px 40px rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(20px);
+        transition: all 0.3s ease;
+      }
+
+      .cyber-panel-red:hover {
+        border-color: rgba(255, 0, 76, 0.4);
+        box-shadow: inset 0 0 20px rgba(255, 0, 76, 0.1), 0 0 30px rgba(255, 0, 76, 0.15);
+      }
+
+      .cyber-panel-green {
+        background: linear-gradient(135deg, rgba(3, 20, 10, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        border: 1px solid rgba(57, 255, 20, 0.15);
+        box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.05), 0 10px 40px rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(20px);
+        transition: all 0.3s ease;
+      }
+
+      .cyber-panel-green:hover {
+        border-color: rgba(57, 255, 20, 0.4);
+        box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.1), 0 0 30px rgba(57, 255, 20, 0.15);
+      }
+
+      .glow-cyan {
+        text-shadow: 0 0 15px rgba(0, 242, 255, 0.6);
+      }
+
+      .glow-pink {
+        text-shadow: 0 0 15px rgba(255, 0, 188, 0.6);
+      }
+
+      .glow-yellow {
+        text-shadow: 0 0 15px rgba(252, 211, 77, 0.6);
+      }
+
+      /* Animated floating background indicators */
+      @keyframes floatSlow {
+        0%, 100% { transform: translateY(0) rotate(-12deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+      }
+      @keyframes floatFast {
+        0%, 100% { transform: translateY(0) rotate(45deg); }
+        50% { transform: translateY(-20px) rotate(15deg); }
+      }
+      .animate-float-slow {
+        animation: floatSlow 6s ease-in-out infinite;
+      }
+      .animate-float-fast {
+        animation: floatFast 4s ease-in-out infinite;
+      }
+
+      .project-portal-glow {
+        box-shadow: 0 0 35px rgba(0, 242, 255, 0.25), inset 0 0 20px rgba(0, 242, 255, 0.2);
+      }
+      
+      /* Input range slider customization */
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #39ff14;
+        cursor: pointer;
+        box-shadow: 0 0 10px #39ff14;
+        transition: transform 0.1s;
+      }
+      input[type=range]::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+      }
+    </style>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="mesh-bg min-h-screen text-white font-sans overflow-x-hidden selection:bg-brand-cyan selection:text-gray-900 scroll-smooth">
+
+    <!-- 1. Header & Navigation -->
+    <header class="relative w-full z-40 overflow-hidden">
+      <!-- Top Background Aura Glow -->
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-cyan/20 rounded-full blur-3xl -z-10"></div>
+      <div class="absolute top-[20%] right-10 w-80 h-80 bg-brand-yellow/10 rounded-full blur-3xl -z-10"></div>
+
+      <!-- Navigation Menu -->
+      <nav class="max-w-7xl mx-auto mt-4 px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between border border-brand-cyan/25 backdrop-blur-md bg-slate-950/65 rounded-2xl shadow-xl shadow-brand-cyan/5">
+        <div class="flex items-center gap-3">
+          <img 
+            src="/src/assets/images/eduversum_logo_1781386912599.jpg" 
+            alt="Eduversum Logo" 
+            class="w-10 h-10 rounded-xl border border-white/10 shadow-lg shadow-brand-cyan/10"
+            referrerpolicy="no-referrer"
+          />
+          <div>
+            <span class="font-display font-bold text-xl tracking-tight text-white block">
+              EDUVERSUM
+            </span>
+            <span class="text-[9px] tracking-widest text-brand-yellow block font-medium uppercase">
+              Pensar. Comprender. Transformar.
+            </span>
+          </div>
+        </div>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#comparativa" class="text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 relative group">
+            El Problema vs El Futuro
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="#antes-despues" class="text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 relative group">
+            Antes vs Después
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="#el-destino" class="text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 relative group">
+            El Destino
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="#quiz" class="text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 relative group">
+            Autodiagnóstico
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan group-hover:w-full transition-all duration-300"></span>
+          </a>
+        </div>
+
+        <!-- Action Button & Waitlist Tag -->
+        <div class="hidden lg:flex items-center gap-4">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-brand-cyan inline-block"></span>
+            PRÓXIMAMENTE
+          </span>
+          <a
+            href="#contacto"
+            class="px-5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-brand-cyan to-brand-green text-gray-950 hover:brightness-110 transition duration-200 shadow-md shadow-brand-cyan/20 flex items-center gap-1.5"
+          >
+            Únete a la Lista <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <div class="md:hidden flex items-center gap-3">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20">
+            PRÓXIMAMENTE
+          </span>
+          <button
+            id="mobile-menu-btn"
+            class="p-2 text-gray-400 hover:text-white focus:outline-none"
+          >
+            <i data-lucide="menu" id="menu-icon-open" class="w-6 h-6"></i>
+            <i data-lucide="x" id="menu-icon-close" class="w-6 h-6 hidden"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu Panel -->
+      <div 
+        id="mobile-menu-panel" 
+        class="hidden md:hidden bg-slate-950 border-b border-white/10 px-4 py-6 flex flex-col gap-4 relative z-50 text-center transition-all duration-200"
+      >
+        <a href="#comparativa" class="mobile-nav-link text-base font-medium text-gray-300 hover:text-white block py-2">El Problema vs El Futuro</a>
+        <a href="#antes-despues" class="mobile-nav-link text-base font-medium text-gray-300 hover:text-white block py-2">Antes vs Después</a>
+        <a href="#el-destino" class="mobile-nav-link text-base font-medium text-gray-300 hover:text-white block py-2">El Destino</a>
+        <a href="#quiz" class="mobile-nav-link text-base font-medium text-gray-300 hover:text-white block py-2">Autodiagnóstico</a>
+        <a
+          href="#contacto"
+          class="mobile-nav-link mt-2 block w-full text-center px-5 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-cyan to-brand-green text-gray-950"
+        >
+          Únete a la Lista de Espera
+        </a>
+      </div>
+
+      <!-- Hero Body -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative">
+        
+        <!-- Floating Puzzle Pieces Illustration -->
+        <div class="absolute top-1/4 left-10 w-8 h-8 opacity-25 animate-float-slow text-brand-yellow text-2xl select-none">
+          🧩
+        </div>
+        <div class="absolute bottom-1/4 right-[45%] w-12 h-12 opacity-30 animate-float-fast text-brand-cyan text-3xl select-none">
+          🧩
+        </div>
+        <div class="absolute top-12 right-[10%] w-6 h-6 opacity-20 animate-float-slow text-brand-pink text-xl select-none">
+          🧩
+        </div>
+
+        <!-- Left: Text Statements -->
+        <div class="lg:col-span-7 flex flex-col justify-center space-y-8 select-none text-center lg:text-left">
+          <div class="space-y-4">
+            <div 
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-brand-yellow font-mono shadow-inner"
+            >
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-yellow"></i>
+              REVOLUCIÓN EDUCATIVA INDEPENDIENTE
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-display font-extrabold tracking-tight text-white leading-tight uppercase">
+              No formamos estudiantes que memorizan.
+              <span class="block mt-4 text-brand-cyan font-extrabold relative">
+                Formamos pensadores
+              </span>
+              <span class="block mt-1 font-hand text-brand-yellow text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl lowercase italic tracking-wide drop-shadow-[0_4px_12px_rgba(252,211,77,0.3)] select-none">
+                que transforman.
+              </span>
+            </h1>
+          </div>
+
+          <p class="text-gray-300 text-base md:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans">
+            No preparamos para el examen ICFES. <span class="text-brand-cyan font-bold">Preparamos el pensamiento</span> que el ICFES y PISA necesitan. Porque no prometemos un puntaje alto —eso, por lógica, llega solo cuando entiendes, conectas y razonas, no cuando repites de memoria.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a 
+              href="#comparativa"
+              class="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl font-bold bg-gradient-to-r from-brand-cyan via-brand-cyan to-brand-pink text-gray-950 hover:scale-105 transition-all duration-200 shadow-lg shadow-brand-cyan/20 cursor-pointer"
+            >
+              Explorar Comparativa
+            </a>
+            <a 
+              href="#quiz"
+              class="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl font-bold border border-brand-cyan/35 text-brand-cyan bg-brand-cyan/5 hover:bg-brand-cyan/15 hover:border-brand-cyan/60 hover:scale-105 transition-all duration-200 cursor-pointer"
+            >
+              Medir mi Mentalidad
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Portal displays student -->
+        <div class="lg:col-span-5 flex justify-center relative">
+          <!-- Neon Circle Glow Outer Frame -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-brand-cyan via-purple-600 to-brand-yellow rounded-full blur-2xl opacity-30 animate-pulse"></div>
+          
+          <div class="relative w-72 h-72 sm:w-85 sm:h-85 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl shadow-brand-cyan/30 bg-gray-950 p-1 project-portal-glow">
+            <img 
+              src="/src/assets/images/hero_student_1781386925102.jpg" 
+              alt="Estudiante pensador de Eduversum" 
+              class="w-full h-full object-cover rounded-full select-none"
+              referrerPolicy="no-referrer"
+            />
+            
+            <!-- Overlay Brain Connections Badge -->
+            <div class="absolute bottom-6 right-6 bg-gray-900/90 border border-white/15 px-3 py-2 rounded-2xl flex items-center gap-2 shadow-xl backdrop-blur-md">
+              <div class="p-1 rounded-lg bg-pink-500/10">
+                <i data-lucide="brain" class="w-5 h-5 text-brand-pink"></i>
+              </div>
+              <div class="text-left font-mono">
+                <span class="text-[10px] text-gray-400 block line-height-1">Cognición Activa</span>
+                <span class="text-[11px] font-bold text-white block">Sinape-Minds™</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+
+    <!-- 2. Analytical Diagnostic: El Problema (Hoy) vs El Futuro -->
+    <section id="comparativa" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 select-none">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display font-black tracking-tight text-white uppercase">
+          Diagnóstico de la Educación <span class="text-stroke-cyan text-brand-cyan">Actual</span>
+        </h2>
+        <p class="mt-4 text-gray-300 max-w-3xl mx-auto text-sm leading-relaxed">
+          Hoy en día, el examen del <span class="text-brand-cyan font-bold">ICFES</span> no premia la memoria, premia la capacidad de razonar. Compara las dinámicas obstructivas de la repetición inercial frente a las capacidades integradas que siembra la metodología disruptiva de Eduversum.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Left: EL PROBLEMA -->
+        <div class="flex flex-col justify-between cyber-panel-red rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-full blur-2xl -z-10"></div>
+          
+          <div>
+            <div class="flex items-center gap-3 border-b border-brand-red/10 pb-4 mb-6">
+              <div class="p-2.5 rounded-lg bg-brand-red/15 text-brand-red">
+                <i data-lucide="alert-triangle" class="w-6 h-6 animate-pulse"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-extrabold text-white text-lg tracking-wide uppercase">
+                  EL PROBLEMA
+                </h3>
+                <span class="text-xs font-mono text-brand-red/80 font-bold uppercase tracking-widest">
+                  (SITUACIÓN HOY EN DÍA)
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-6 p-4 rounded-2xl bg-brand-red/5 border border-brand-red/20 text-xs italic text-gray-300 leading-relaxed font-sans">
+              &ldquo;Hoy, la mayoría de los estudiantes aprenden para memorizar, no para pensar. Responden rápido, pero no comprenden profundo. Aprueban exámenes, pero no transfieren lo aprendido a la vida real. Y lo peor: están dejando de pensar por sí mismos. En el ICFES, eso se paga caro: porque el examen no premia la memoria, premia la capacidad de razonar.&rdquo;
+            </div>
+
+            <!-- List items -->
+            <div class="space-y-4">
+              <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-red/10 transition duration-200 group">
+                <div class="mt-1 flex-shrink-0 text-brand-red/80 group-hover:text-brand-red transition-all">
+                  <i data-lucide="zap" class="w-5 h-5"></i>
+                </div>
+                <span class="text-gray-300 text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
+                  Responden rápido por inercia, pero sin pensamiento profundo.
+                </span>
+              </div>
+              <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-red/10 transition duration-200 group">
+                <div class="mt-1 flex-shrink-0 text-brand-red/80 group-hover:text-brand-red transition-all">
+                  <i data-lucide="book-open" class="w-5 h-5"></i>
+                </div>
+                <span class="text-gray-300 text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
+                  Memorización ciega sin comprensión de los conceptos.
+                </span>
+              </div>
+              <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-red/10 transition duration-200 group">
+                <div class="mt-1 flex-shrink-0 text-brand-red/80 group-hover:text-brand-red transition-all">
+                  <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                </div>
+                <span class="text-gray-300 text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
+                  Aprendemos únicamente para pasar un examen, no para la vida real.
+                </span>
+              </div>
+              <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-red/10 transition duration-200 group">
+                <div class="mt-1 flex-shrink-0 text-brand-red/80 group-hover:text-brand-red transition-all">
+                  <i data-lucide="puzzle" class="w-5 h-5"></i>
+                </div>
+                <span class="text-gray-300 text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
+                  No transferimos el conocimiento estructurado a nuevos retos complejos.
+                </span>
+              </div>
+              <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-red/10 transition duration-200 group">
+                <div class="mt-1 flex-shrink-0 text-brand-red/80 group-hover:text-brand-red transition-all">
+                  <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                </div>
+                <span class="text-gray-300 text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
+                  Aceptamos información sesgada o falsa de forma pasiva y sin cuestionar.
+                </span>
+              </div>
+              <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-red/10 transition duration-200 group">
+                <div class="mt-1 flex-shrink-0 text-brand-red/80 group-hover:text-brand-red transition-all">
+                  <i data-lucide="user-minus" class="w-5 h-5"></i>
+                </div>
+                <span class="text-gray-300 text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
+                  No pensamos por nosotros mismos: dependemos de un guion preestablecido.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Final Warning Banner -->
+          <div class="mt-10 p-4 border border-brand-red bg-brand-red/10 rounded-2xl flex items-center justify-center gap-3 text-center">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-brand-red animate-pulse flex-shrink-0"></i>
+            <span class="font-display font-extrabold text-brand-red text-xs sm:text-sm tracking-wider uppercase select-none">
+              ESTAMOS DEJANDO DE ENSEÑAR A PENSAR.
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: EL FUTURO -->
+        <div class="flex flex-col justify-between cyber-panel-green rounded-3xl p-6 sm:p-8 transition-all duration-300 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-32 h-32 bg-brand-green/5 rounded-full blur-2xl -z-10"></div>
+
+          <div>
+            <div class="flex items-center gap-3 border-b border-brand-green/10 pb-4 mb-6">
+              <div class="p-2.5 rounded-lg bg-brand-green/15 text-brand-green">
+                <i data-lucide="lightbulb" class="w-6 h-6 text-brand-green"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-extrabold text-white text-lg tracking-wide uppercase">
+                  EL FUTURO
+                </h3>
+                <span class="text-xs font-mono text-brand-green/80 font-bold uppercase tracking-widest">
+                  (DESPUÉS DE EDUVERSUM)
+                </span>
+              </div>
+            </div>
+
+            <!-- Grid with features list and image -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+              
+              <!-- Features -->
+              <div class="md:col-span-7 space-y-3.5">
+                <div class="mb-4 p-4 rounded-2xl bg-brand-green/5 border border-brand-green/20 text-xs italic text-gray-300 leading-relaxed font-sans">
+                  &ldquo;Estamos construyendo un espacio donde se aprende a preguntar, investigar, argumentar con evidencia, conectar ideas de distintas áreas y aplicar el conocimiento para transformar su comunidad. Eso, sin quererlo, también mejora cualquier examen.&rdquo;
+                </div>
+
+                <span class="text-xs font-mono text-gray-400 font-semibold block mb-2 italic">
+                  Imagina un estudiante que:
+                </span>
+
+                <!-- 10 Future items from React source -->
+                <div class="space-y-2.5">
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="help-circle" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      Formula <span class="text-brand-yellow font-bold">preguntas profundas.</span>
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="search" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-brand-cyan font-bold">Investiga</span> antes de emitir un juicio.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="message-square" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-purple-400 font-bold">Argumenta</span> con evidencia sólida e inductiva.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="shield" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      Detecta información falsa y sesgos cognitivos.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="refresh-cw" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-amber-400 font-bold">Aprende</span> de sus errores para iterar soluciones.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="cpu" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-blue-400 font-bold">Conecta</span> ideas críticas de distintas disciplinas.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="rocket" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-brand-yellow font-bold">Aplica</span> lo aprendido para transformar la realidad.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="brain" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-brand-pink font-bold">Piensa</span> por sí mismo con total autonomía.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="corner-down-right" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-amber-400 font-bold">Propone</span> soluciones innovadoras a problemas reales.
+                    </span>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-brand-green/15 transition duration-150 group">
+                    <div class="mt-0.5 flex-shrink-0 text-brand-green/85"><i data-lucide="heart" class="w-4 h-4"></i></div>
+                    <span class="text-gray-300 text-xs font-medium leading-relaxed">
+                      <span class="text-brand-green font-bold">Ayuda</span> a empoderar y transformar su comunidad.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Student Future Image -->
+              <div class="md:col-span-5 h-full flex flex-col justify-center">
+                <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-xl group/card bg-gray-950">
+                  <img 
+                    src="/src/assets/images/student_future_1781386938139.jpg" 
+                    alt="Estudiante del futuro con tablet" 
+                    class="w-full aspect-[4/5] object-cover hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  
+                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent">
+                    <div class="backdrop-blur-sm bg-white/5 border border-white/10 p-2 rounded-xl text-center">
+                      <span class="text-[10px] font-mono text-brand-green font-bold block tracking-wider">MÉTODO COMPRENSIVO</span>
+                      <span class="text-[11px] font-bold text-white block mt-0.5">Creativo &amp; Autónomo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- 3. Before vs After Interactive Transition -->
+    <section id="antes-despues" class="border-y border-white/5 bg-gray-950/20 py-24 select-none scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Heading -->
+        <div class="text-center mb-16 relative">
+          <span class="text-xs font-mono font-bold text-center text-brand-yellow tracking-widest block mb-2">
+            EL PROCESO TRANSFORMADOR
+          </span>
+          <h2 class="text-4xl font-display font-black tracking-tight text-white uppercase">
+            Antes <span class="text-gray-500 font-normal">vs</span> Después
+          </h2>
+          <p class="mt-3 text-gray-300 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
+            &ldquo;Imagina un estudiante que no te pregunta <strong>&iquest;esto entra en el examen?</strong>, sino <strong>&iquest;por qué ocurre?, &iquest;dónde más puedo aplicarlo?, &iquest;qué puedo crear con esto?</strong>. Ese estudiante no solo piensa mejor. Vive mejor. Y sí: también obtiene mejores resultados en el ICFES. Pero ese es un efecto secundario, no el objetivo.&rdquo;
+          </p>
+
+          <!-- Interactive Controller Slider Bar -->
+          <div class="mt-8 max-w-md mx-auto bg-gray-900 border border-white/5 p-4 rounded-2xl shadow-xl">
+            <div class="flex justify-between text-xs font-mono text-gray-400 mb-2">
+              <span class="flex items-center gap-1"><i data-lucide="x-circle" class="w-3.5 h-3.5 text-brand-red"></i> Memorización</span>
+              <span id="slider-progress-label" class="font-bold text-white uppercase">100% Eduversum</span>
+              <span class="flex items-center gap-1">Comprensión <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-brand-green"></i></span>
+            </div>
+            
+            <input 
+              type="range" 
+              min="0" 
+              max="100" 
+              value="100" 
+              id="transformation-slider"
+              class="w-full accent-brand-green cursor-pointer h-2 bg-gray-800 rounded-lg appearance-none"
+            />
+            
+            <div id="slider-status-banner" class="mt-3 py-1.5 px-3 rounded-lg text-center font-mono text-xs font-bold border transition-all duration-300 bg-brand-green/10 border-brand-green/20 text-brand-green">
+              Líder Transformador Eduversum
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparative Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- LEFT: ANTES (Memorización Pasiva) -->
+          <div 
+            id="before-card"
+            class="lg:col-span-5 cyber-panel-red rounded-3xl p-6 relative overflow-hidden transition-all duration-300"
+          >
+            <!-- Badge -->
+            <div class="absolute top-4 right-4 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-red text-white uppercase">
+              ANTES
+            </div>
+
+            <div class="flex flex-col items-center">
+              <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-lg mb-6 bg-gray-950">
+                <img 
+                  src="/src/assets/images/student_before_1781386954102.jpg" 
+                  alt="Estudiante estresado del antes" 
+                  class="w-full h-full object-cover filter contrast-125 select-none"
+                  referrerPolicy="no-referrer"
+                />
+                <div class="absolute inset-0 bg-red-950/20 mix-blend-color-burn"></div>
+              </div>
+
+              <!-- Typical question boxes -->
+              <div class="w-full space-y-3">
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-red/20 bg-brand-red/5 text-gray-200 text-sm font-semibold hover:bg-brand-red/10 transition-colors">
+                  <span>¿Esto entra en el examen?</span>
+                  <i data-lucide="x-circle" class="w-5 h-5 text-brand-red flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-red/20 bg-brand-red/5 text-gray-200 text-sm font-semibold hover:bg-brand-red/10 transition-colors">
+                  <span>Dígame la respuesta directa.</span>
+                  <i data-lucide="x-circle" class="w-5 h-5 text-brand-red flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-red/20 bg-brand-red/5 text-gray-200 text-sm font-semibold hover:bg-brand-red/10 transition-colors">
+                  <span>Ya me la aprendí de memoria.</span>
+                  <i data-lucide="x-circle" class="w-5 h-5 text-brand-red flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-red/20 bg-brand-red/5 text-gray-200 text-sm font-semibold hover:bg-brand-red/10 transition-colors">
+                  <span>¿Para qué sirve esto en la hoja?</span>
+                  <i data-lucide="x-circle" class="w-5 h-5 text-brand-red flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-red/20 bg-brand-red/5 text-gray-200 text-sm font-semibold hover:bg-brand-red/10 transition-colors">
+                  <span>Se me olvidó todo luego del examen.</span>
+                  <i data-lucide="x-circle" class="w-5 h-5 text-brand-red flex-shrink-0"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MIDDLE: EVOLUTION FLIP BUTTON -->
+          <div class="lg:col-span-2 flex flex-col items-center justify-center py-6 select-none">
+            <button 
+              id="slider-toggle-btn"
+              class="w-16 h-16 rounded-full bg-gradient-to-r from-brand-yellow to-amber-500 border-2 border-white/20 flex items-center justify-center text-gray-950 shadow-xl shadow-brand-yellow/30 hover:shadow-brand-yellow/50 transition duration-300 cursor-pointer relative z-10 hover:scale-110 active:scale-95"
+              title="Click para alternar evolución"
+            >
+              <i data-lucide="sparkles" class="w-7 h-7 text-gray-900 duration-1000"></i>
+            </button>
+            <div class="hidden lg:flex flex-col items-center mt-4">
+              <span class="text-[10px] font-mono text-gray-500 font-bold uppercase tracking-widest">
+                EVOLUCIÓN
+              </span>
+              <div class="flex gap-1 mt-2 text-brand-yellow">
+                <i data-lucide="chevrons-right" class="w-6 h-6 animate-pulse"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: DESPUÉS (Comprensión Transformativa) -->
+          <div 
+            id="after-card"
+            class="lg:col-span-5 cyber-panel-green rounded-3xl p-6 relative overflow-hidden transition-all duration-300"
+          >
+            <!-- Badge -->
+            <div class="absolute top-4 right-4 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-green text-white uppercase">
+              DESPUÉS
+            </div>
+
+            <div class="flex flex-col items-center">
+              <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-lg mb-6 bg-gray-950">
+                <img 
+                  src="/src/assets/images/student_after_1781386967022.jpg" 
+                  alt="Estudiante feliz del después" 
+                  class="w-full h-full object-cover filter contrast-105 select-none"
+                  referrerPolicy="no-referrer"
+                />
+                <div class="absolute inset-0 bg-emerald-950/20 mix-blend-color-burn"></div>
+              </div>
+
+              <!-- Empowering question boxes -->
+              <div class="w-full space-y-3">
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-green/20 bg-brand-green/5 text-gray-100 text-sm font-semibold hover:bg-brand-green/10 transition-colors">
+                  <span>¿Por qué ocurre este fenómeno?</span>
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-green/20 bg-brand-green/5 text-gray-100 text-sm font-semibold hover:bg-brand-green/10 transition-colors">
+                  <span>¿Cuáles son las evidencias científicas?</span>
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-green/20 bg-brand-green/5 text-gray-100 text-sm font-semibold hover:bg-brand-green/10 transition-colors">
+                  <span>¿Cómo se relaciona con otras áreas?</span>
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-green/20 bg-brand-green/5 text-gray-100 text-sm font-semibold hover:bg-brand-green/10 transition-colors">
+                  <span>¿Dónde más puedo aplicarlo en la vida real?</span>
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green flex-shrink-0"></i>
+                </div>
+                <div class="flex items-center justify-between p-3.5 rounded-xl border border-brand-green/20 bg-brand-green/5 text-gray-100 text-sm font-semibold hover:bg-brand-green/10 transition-colors">
+                  <span>¿Qué puedo proponer o crear con esto?</span>
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green flex-shrink-0"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4. Strategic Pillars: El Destino -->
+    <section id="el-destino" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 select-none scroll-mt-24">
+      
+      <!-- Section Title -->
+      <div class="text-center mb-16">
+        <span class="text-xs font-mono font-bold text-brand-green tracking-widest block mb-2">
+          LA META COGNITIVA
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-black tracking-tight text-white uppercase">
+          EL DESTINO: PENSAR PARA <span class="text-brand-yellow font-extrabold relative drop-shadow-[0_2px_8px_rgba(252,211,77,0.2)] text-stroke-cyan">TRANSFORMAR</span>
+        </h2>
+        <p class="mt-3 text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
+          Haz clic en cada pilar eduversario para descubrir cómo guiamos a los estudiantes a integrar habilidades intelectuales profundas.
+        </p>
+      </div>
+
+      <!-- Grid of pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5 items-stretch">
+        
+        <!-- CARD 1: INVESTIGA -->
+        <div 
+          class="pillar-card cursor-pointer group flex flex-col justify-between rounded-2xl border border-white/5 bg-gradient-to-b from-cyan-500/20 to-blue-500/10 hover:border-cyan-500/50 text-cyan-400 p-5 transition-all duration-300 transform hover:-translate-y-1.5 shadow-lg relative overflow-hidden"
+          data-pillar-id="d1"
+        >
+          <div class="absolute top-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="p-3 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5 shadow-md">
+                <i data-lucide="search" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono font-bold tracking-widest text-gray-400">01</span>
+            </div>
+            <div class="text-left mt-2">
+              <h3 class="font-display font-extrabold text-base tracking-wide text-white uppercase group-hover:text-brand-yellow transition-colors">
+                INVESTIGA
+              </h3>
+              <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                Aprende a indagar con rigor
+              </p>
+            </div>
+          </div>
+          <div class="text-left mt-4 text-[10px] font-mono text-brand-cyan group-hover:underline flex items-center gap-1">
+            Ver Metodología &rarr;
+          </div>
+        </div>
+
+        <!-- CARD 2: CREA -->
+        <div 
+          class="pillar-card cursor-pointer group flex flex-col justify-between rounded-2xl border border-white/5 bg-gradient-to-b from-amber-500/20 to-orange-500/10 hover:border-amber-500/50 text-amber-400 p-5 transition-all duration-300 transform hover:-translate-y-1.5 shadow-lg relative overflow-hidden"
+          data-pillar-id="d2"
+        >
+          <div class="absolute top-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="p-3 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5 shadow-md">
+                <i data-lucide="pencil-ruler" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono font-bold tracking-widest text-gray-400">02</span>
+            </div>
+            <div class="text-left mt-2">
+              <h3 class="font-display font-extrabold text-base tracking-wide text-white uppercase group-hover:text-brand-yellow transition-colors">
+                CREA
+              </h3>
+              <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                Construye el mañana
+              </p>
+            </div>
+          </div>
+          <div class="text-left mt-4 text-[10px] font-mono text-brand-cyan group-hover:underline flex items-center gap-1">
+            Ver Metodología &rarr;
+          </div>
+        </div>
+
+        <!-- CARD 3: DEBATE -->
+        <div 
+          class="pillar-card cursor-pointer group flex flex-col justify-between rounded-2xl border border-white/5 bg-gradient-to-b from-purple-500/20 to-pink-500/10 hover:border-purple-500/50 text-purple-400 p-5 transition-all duration-300 transform hover:-translate-y-1.5 shadow-lg relative overflow-hidden"
+          data-pillar-id="d3"
+        >
+          <div class="absolute top-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="p-3 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5 shadow-md">
+                <i data-lucide="users" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono font-bold tracking-widest text-gray-400">03</span>
+            </div>
+            <div class="text-left mt-2">
+              <h3 class="font-display font-extrabold text-base tracking-wide text-white uppercase group-hover:text-brand-yellow transition-colors">
+                DEBATE
+              </h3>
+              <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                Contrastación de ideas socrática
+              </p>
+            </div>
+          </div>
+          <div class="text-left mt-4 text-[10px] font-mono text-brand-cyan group-hover:underline flex items-center gap-1">
+            Ver Metodología &rarr;
+          </div>
+        </div>
+
+        <!-- CARD 4: LIDERA -->
+        <div 
+          class="pillar-card cursor-pointer group flex flex-col justify-between rounded-2xl border border-white/5 bg-gradient-to-b from-emerald-500/20 to-teal-500/10 hover:border-emerald-500/50 text-emerald-400 p-5 transition-all duration-300 transform hover:-translate-y-1.5 shadow-lg relative overflow-hidden"
+          data-pillar-id="d4"
+        >
+          <div class="absolute top-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="p-3 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5 shadow-md">
+                <i data-lucide="crown" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono font-bold tracking-widest text-gray-400">04</span>
+            </div>
+            <div class="text-left mt-2">
+              <h3 class="font-display font-extrabold text-base tracking-wide text-white uppercase group-hover:text-brand-yellow transition-colors">
+                LIDERA
+              </h3>
+              <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                Liderazgo humilde y empático
+              </p>
+            </div>
+          </div>
+          <div class="text-left mt-4 text-[10px] font-mono text-brand-cyan group-hover:underline flex items-center gap-1">
+            Ver Metodología &rarr;
+          </div>
+        </div>
+
+        <!-- CARD 5: RESUELVE -->
+        <div 
+          class="pillar-card cursor-pointer group flex flex-col justify-between rounded-2xl border border-white/5 bg-gradient-to-b from-blue-600/20 to-indigo-600/10 hover:border-blue-500/50 text-blue-400 p-5 transition-all duration-300 transform hover:-translate-y-1.5 shadow-lg relative overflow-hidden"
+          data-pillar-id="d5"
+        >
+          <div class="absolute top-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="p-3 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5 shadow-md">
+                <i data-lucide="calculator" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono font-bold tracking-widest text-gray-400">05</span>
+            </div>
+            <div class="text-left mt-2">
+              <h3 class="font-display font-extrabold text-base tracking-wide text-white uppercase group-hover:text-brand-yellow transition-colors">
+                RESUELVE
+              </h3>
+              <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                Enfoque algorítmico global
+              </p>
+            </div>
+          </div>
+          <div class="text-left mt-4 text-[10px] font-mono text-brand-cyan group-hover:underline flex items-center gap-1">
+            Ver Metodología &rarr;
+          </div>
+        </div>
+
+        <!-- CARD 6: TRANSFORMA -->
+        <div 
+          class="pillar-card cursor-pointer group flex flex-col justify-between rounded-2xl border border-white/5 bg-gradient-to-b from-green-500/20 to-emerald-600/10 hover:border-green-500/50 text-green-400 p-5 transition-all duration-300 transform hover:-translate-y-1.5 shadow-lg relative overflow-hidden"
+          data-pillar-id="d6"
+        >
+          <div class="absolute top-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="p-3 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5 shadow-md">
+                <i data-lucide="globe" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono font-bold tracking-widest text-gray-400">06</span>
+            </div>
+            <div class="text-left mt-2">
+              <h3 class="font-display font-extrabold text-base tracking-wide text-white uppercase group-hover:text-brand-yellow transition-colors">
+                TRANSFORMA
+              </h3>
+              <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                Evoluciona tu ecosistema
+              </p>
+            </div>
+          </div>
+          <div class="text-left mt-4 text-[10px] font-mono text-brand-cyan group-hover:underline flex items-center gap-1">
+            Ver Metodología &rarr;
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Pillar Modal Backdrop Structure -->
+    <div id="pillar-modal" class="fixed inset-0 bg-gray-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-gray-900 border border-white/10 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative">
+        <button 
+          id="modal-close-btn"
+          class="absolute top-5 right-5 p-1 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="flex items-center gap-3.5 mb-6">
+          <span class="p-3 bg-brand-yellow/10 rounded-2xl text-brand-yellow border border-brand-yellow/20">
+            <i data-lucide="sparkles" id="modal-pillar-icon" class="w-7 h-7"></i>
+          </span>
+          <div>
+            <span class="text-[10px] font-mono text-brand-yellow font-bold uppercase tracking-wider block">Pilar de Aprendizaje</span>
+            <h3 id="modal-pillar-title" class="font-display font-black text-2xl text-white tracking-tight uppercase">
+              INVESTIGA
+            </h3>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <p id="modal-pillar-summary" class="text-brand-cyan text-sm font-semibold font-mono">
+            Aprende a indagar con rigor
+          </p>
+          <p id="modal-pillar-description" class="text-gray-300 text-sm leading-relaxed">
+            En Eduversum los estudiantes no solo asimilan datos. Formulan hipótesis, buscan fuentes de información de primera mano...
+          </p>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-white/5 flex justify-end">
+          <button
+            id="modal-close-bottom"
+            class="px-5 py-2 rounded-xl text-xs font-bold bg-white text-gray-950 hover:bg-gray-100 transition"
+          >
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 5. Gamified Insight: Autodiagnóstico de Mentalidad -->
+    <section id="quiz" class="bg-gray-950/40 border-y border-white/5 py-24 select-none scroll-mt-24">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-pink-500/10 text-brand-pink border border-brand-pink/20 mb-3">
+            <i data-lucide="brain" class="w-3.5 h-3.5 text-brand-pink"></i>
+            AUTODIAGNÓSTICO COGNITIVO
+          </span>
+          <h2 class="text-3xl font-display font-black tracking-tight text-white uppercase">
+            ¿Cuál es tu tipo de mentalidad?
+          </h2>
+          <p class="mt-3 text-gray-400 text-sm max-w-lg mx-auto">
+            Mide en qué punto te encuentras: ¿Memorizar de forma automática o Pensar para transformar con autonomía crítica?
+          </p>
+        </div>
+
+        <!-- Quiz Card Container -->
+        <div class="cyber-panel-blue rounded-3xl p-6 sm:p-8 relative overflow-hidden min-h-[420px] flex flex-col justify-between">
+          <div class="absolute top-0 right-10 w-48 h-48 bg-brand-pink/5 rounded-full blur-3xl -z-10"></div>
+
+          <!-- QUESTIONS SLIDE -->
+          <div id="quiz-questions-view" class="space-y-6 flex flex-col justify-between h-full flex-grow">
+            <div>
+              <!-- Progress -->
+              <div class="flex justify-between text-xs font-mono text-gray-500 font-bold mb-4">
+                <span id="quiz-progress-text">PREGUNTA 01 DE 03</span>
+                <span class="text-brand-pink">AVANCE CODIFICADO</span>
+              </div>
+
+              <!-- Question Text -->
+              <h3 id="quiz-question-text" class="text-lg sm:text-xl font-display font-bold text-white leading-snug">
+                Cuando te enfrentas a un tema nuevo en clase o trabajo, ¿cuál es tu primera prioridad?
+              </h3>
+
+              <!-- Options list -->
+              <div id="quiz-options-container" class="space-y-3 mt-6">
+                <!-- Javascript will inject options here -->
+              </div>
+            </div>
+
+            <!-- Quiz Action controls Button -->
+            <div class="mt-8 pt-4 flex justify-end border-t border-white/5">
+              <button
+                id="quiz-next-btn"
+                disabled
+                class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-1.5 transition text-xs uppercase bg-white/5 text-gray-500 cursor-not-allowed"
+              >
+                Siguiente Pregunta <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- RESULTS SLIDE (HIDDEN BY DEFAULT) -->
+          <div id="quiz-results-view" class="hidden text-center py-6 flex flex-col items-center justify-between h-full flex-grow">
+            <div class="space-y-6 w-full">
+              <!-- Bouncing Cup Badge -->
+              <div class="p-4 rounded-full bg-brand-pink/15 text-brand-pink inline-block mb-2 animate-bounce">
+                <i data-lucide="award" class="w-10 h-10 text-brand-pink"></i>
+              </div>
+
+              <!-- Thinking Index Score -->
+              <div>
+                <span class="text-xs font-mono font-bold text-gray-400 block tracking-widest uppercase">
+                  ÍNDICE CONTEMPORÁNEO COGNITIVO
+                </span>
+                <h3 class="text-5xl font-display font-black text-white mt-1">
+                  <span id="results-thinking-percentage">100%</span> 
+                  <span class="text-sm font-semibold text-brand-pink/90">PENSADOR</span>
+                </h3>
+              </div>
+
+              <!-- Diagnostics profile box -->
+              <div class="text-left bg-white/2 border border-white/5 p-5 rounded-2xl max-w-xl mx-auto space-y-3">
+                <h4 id="results-profile-title" class="font-display font-extrabold text-base text-brand-pink uppercase tracking-wide">
+                  Perfil: Agente de Transformación Global
+                </h4>
+                <p id="results-profile-desc" class="text-gray-300 text-xs leading-relaxed">
+                  Posees una mentalidad sobresaliente y libre. Cuestionas las fuentes, analizas las evidencias pragmáticas de raíz y concibes soluciones innovadoras para problemas de tu entorno.
+                </p>
+                <div class="pt-2.5 border-t border-white/5 text-[11px] text-brand-yellow font-medium leading-relaxed">
+                  <span class="font-bold uppercase tracking-wider block mb-1">RECOMIENDA EDUVERSUM:</span>
+                  <span id="results-profile-rec">El pilar LIDERA y TRANSFORMA de Eduversum acelerará tu camino conectándote con un ecosistema de líderes...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final actions -->
+            <div class="mt-10 pt-4 border-t border-white/5 w-full flex justify-center flex-wrap gap-4">
+              <button
+                id="quiz-reset-btn"
+                class="px-6 py-2.5 rounded-xl font-bold bg-white text-gray-950 hover:bg-gray-100 transition text-xs font-mono flex items-center gap-2 cursor-pointer"
+              >
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> REINICIAR TEST
+              </button>
+              <a
+                href="#contacto"
+                class="px-6 py-2.5 rounded-xl font-bold bg-gradient-to-r from-brand-cyan to-brand-green text-gray-950 hover:brightness-110 transition text-xs font-mono flex items-center gap-1"
+              >
+                Únete a la Lista &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- 6. Footer, Philosophy and Waitlist Form -->
+    <footer id="contacto" class="relative pt-24 pb-12 overflow-hidden select-none bg-slate-950">
+      
+      <!-- Background Glow -->
+      <div class="absolute bottom-0 left-1/2 w-96 h-96 bg-brand-cyan/10 rounded-full blur-3xl -z-10"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Philosophy Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-20 border-b border-white/5">
+          
+          <!-- Quote -->
+          <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+            <span class="text-xs font-mono font-bold text-brand-cyan tracking-widest block uppercase">
+              PROPÓSITO EVOLUCIONARIO
+            </span>
+            <blockquote class="text-xl sm:text-2xl font-display font-light text-gray-200 leading-relaxed italic pr-0 lg:pr-8">
+              &ldquo;Eduversum no fue creado para ayudar a estudiantes a responder preguntas. Fue creado para ayudarles a enfrentar un mundo complejo, cambiante e incierto. Por eso, el futuro no pertenece a quienes memorizan más. Pertenece a quienes comprenden, adaptan, transfieren y transforman.&rdquo;
+            </blockquote>
+            
+            <!-- Callout -->
+            <div class="p-1 rounded-2xl bg-gradient-to-r from-brand-cyan/20 to-brand-pink/10 border border-white/10 mt-6 max-w-lg mx-auto lg:mx-0">
+              <div class="bg-gray-950 p-4 rounded-xl text-left">
+                <span class="text-xs font-mono font-bold text-brand-pink tracking-wider block mb-1">PERTENECE A QUIENES</span>
+                <span class="text-md sm:text-lg font-display font-black leading-tight tracking-tight uppercase">
+                  <span class="text-brand-cyan animate-pulse">COMPRENDEN</span>, 
+                  <span class="text-brand-yellow">ADAPTAN</span>, 
+                  <span class="text-brand-green">TRANSFIEREN</span> Y 
+                  <span class="text-brand-pink">TRANSFORMAN.</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horizon Neural Graphics Landscape -->
+          <div class="lg:col-span-6">
+            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl p-1 bg-gray-900 shadow-brand-yellow/5">
+              <img 
+                src="/src/assets/images/path_of_future_1781386978989.jpg" 
+                alt="Montaña del futuro bajo red neuronal" 
+                class="w-full aspect-video object-cover rounded-2xl"
+                referrerPolicy="no-referrer"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-gray-950 to-transparent flex items-center justify-between">
+                <span class="text-[10px] font-mono font-semibold text-brand-yellow tracking-widest uppercase">CONEXIÓN COSMO-DIGITAL</span>
+                <span class="text-[10px] font-mono text-gray-400 font-bold">100% COGNITIVO</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Lower Banner badges -->
+        <div class="py-16 text-center select-none">
+          <span class="text-xs font-mono font-bold text-gray-500 tracking-widest block uppercase mb-8">
+            NUESTRAS CAPACIDADES CLAVE
+          </span>
+          <div class="flex flex-wrap justify-center gap-4">
+            <!-- Badge 1 -->
+            <div class="border px-5 py-3.5 rounded-2xl flex items-center gap-3 shadow-md text-purple-400 border-purple-500/20 bg-purple-500/5 shadow-purple-500/10 transition-all duration-200 hover:scale-105">
+              <span class="flex-shrink-0"><i data-lucide="brain" class="w-5 h-5"></i></span>
+              <span class="font-display font-bold text-[11px] tracking-wider uppercase text-white">
+                PENSAMIENTO CRÍTICO
+              </span>
+            </div>
+            <!-- Badge 2 -->
+            <div class="border px-5 py-3.5 rounded-2xl flex items-center gap-3 shadow-md text-pink-400 border-pink-500/20 bg-pink-500/5 shadow-pink-500/10 transition-all duration-200 hover:scale-105">
+              <span class="flex-shrink-0"><i data-lucide="network" class="w-5 h-5"></i></span>
+              <span class="font-display font-bold text-[11px] tracking-wider uppercase text-white">
+                CONEXIÓN DE IDEAS
+              </span>
+            </div>
+            <!-- Badge 3 -->
+            <div class="border px-5 py-3.5 rounded-2xl flex items-center gap-3 shadow-md text-cyan-400 border-cyan-500/20 bg-cyan-500/5 shadow-cyan-500/10 transition-all duration-200 hover:scale-105">
+              <span class="flex-shrink-0"><i data-lucide="rocket" class="w-5 h-5"></i></span>
+              <span class="font-display font-bold text-[11px] tracking-wider uppercase text-white">
+                APRENDIZAJE PARA LA VIDA
+              </span>
+            </div>
+            <!-- Badge 4 -->
+            <div class="border px-5 py-3.5 rounded-2xl flex items-center gap-3 shadow-md text-yellow-400 border-yellow-500/20 bg-yellow-500/5 shadow-yellow-500/10 transition-all duration-200 hover:scale-105">
+              <span class="flex-shrink-0"><i data-lucide="refresh-cw" class="w-5 h-5"></i></span>
+              <span class="font-display font-bold text-[11px] tracking-wider uppercase text-white">
+                ADAPTACIÓN AL CAMBIO
+              </span>
+            </div>
+            <!-- Badge 5 -->
+            <div class="border px-5 py-3.5 rounded-2xl flex items-center gap-3 shadow-md text-orange-400 border-orange-500/20 bg-orange-500/5 shadow-orange-500/10 transition-all duration-200 hover:scale-105">
+              <span class="flex-shrink-0"><i data-lucide="users-round" class="w-5 h-5"></i></span>
+              <span class="font-display font-bold text-[11px] tracking-wider uppercase text-white">
+                IMPACTO EN SU ENTORNO
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Waitlist Form -->
+        <div class="max-w-xl mx-auto cyber-panel-blue rounded-3xl p-6 sm:p-8 text-center mt-6">
+          <img 
+            src="/src/assets/images/eduversum_logo_1781386912599.jpg" 
+            alt="Eduversum Logo" 
+            class="w-12 h-12 rounded-xl mx-auto mb-4 border border-white/10 hover:rotate-12 transition-transform duration-300"
+            referrerPolicy="no-referrer"
+          />
+          <h4 class="text-xl font-display font-bold text-white uppercase tracking-tight">
+            Únete a la lista de espera
+          </h4>
+          <p class="mt-2 text-gray-400 text-xs">
+            Sé el primero en enterarte del lanzamiento de Eduversum y accede a material educativo exclusivo.
+          </p>
+
+          <!-- Input Fields Form -->
+          <form id="waitlist-form" class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="sr-only">Nombre completo</label>
+                <input 
+                  type="text" 
+                  id="waitlist-name"
+                  placeholder="Tu nombre completo"
+                  required
+                  class="w-full bg-white/5 border border-white/5 hover:border-white/10 focus:border-brand-cyan rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none"
+                />
+              </div>
+              <div>
+                <label class="sr-only">Rol</label>
+                <select
+                  id="waitlist-role"
+                  class="w-full bg-gray-900 border border-white/5 focus:border-brand-cyan rounded-xl px-4 py-2.5 text-xs text-gray-300 focus:outline-none cursor-pointer"
+                >
+                  <option selected>Estudiante</option>
+                  <option>Padre de familia</option>
+                  <option>Educador / Docente</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="relative">
+              <span class="absolute inset-y-0 left-4 flex items-center text-gray-500">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+              </span>
+              <input 
+                type="email" 
+                id="waitlist-email"
+                placeholder="Introduce tu correo electrónico"
+                required
+                class="w-full bg-white/5 border border-white/5 hover:border-white/10 focus:border-brand-cyan rounded-xl pl-11 pr-4 py-3 text-xs text-white focus:outline-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 rounded-xl font-bold bg-gradient-to-r from-brand-cyan to-brand-green text-gray-950 font-mono text-xs uppercase hover:brightness-110 shadow-lg shadow-brand-cyan/10 transition cursor-pointer"
+            >
+              Registrar mi email
+            </button>
+          </form>
+
+          <!-- Success registered message response representation (hidden by default) -->
+          <div id="waitlist-success-view" class="hidden mt-6 p-5 border border-brand-green/20 bg-brand-green/5 rounded-2xl flex flex-col items-center gap-3 transition-all duration-300">
+            <i data-lucide="check-circle" class="w-8 h-8 text-brand-green"></i>
+            <div>
+              <h5 class="font-bold text-white text-sm">¡Registro exitoso en la espera, <span id="success-reg-name">Eduversario</span>!</h5>
+              <p class="text-gray-400 text-[11px] mt-1">Te contactaremos muy pronto. Mientras tanto, sigue pensando, comprendiendo y transformando.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright legal links -->
+        <div class="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-600 font-mono gap-4">
+          <span>&copy; <span id="current-year">2026</span> EDUVERSUM. Todos los derechos reservados.</span>
+          <div class="flex gap-4">
+            <span class="hover:text-gray-400 cursor-pointer">Privacidad</span>
+            <span class="hover:text-gray-400 cursor-pointer">Colegios Aliados</span>
+            <span class="hover:text-gray-400 cursor-pointer">Innovación STEM</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS CODE BLOCK (Vanilla Javascript) -->
+    <script>
+      // Initialize Lucide icon loader
+      document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // -------------------------
+        // 1. Mobile navigation menu
+        // -------------------------
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+          const isClosed = mobileMenuPanel.classList.contains('hidden');
+          if (isClosed) {
+            mobileMenuPanel.classList.remove('hidden');
+            menuIconOpen.classList.add('hidden');
+            menuIconClose.classList.remove('hidden');
+          } else {
+            mobileMenuPanel.classList.add('hidden');
+            menuIconOpen.classList.remove('hidden');
+            menuIconClose.classList.add('hidden');
+          }
+        });
+
+        // Close menu panel when clicking any nav link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenuPanel.classList.add('hidden');
+            menuIconOpen.classList.remove('hidden');
+            menuIconClose.classList.add('hidden');
+          });
+        });
+
+        // ------------------------------------
+        // 2. Before vs After slider conversion
+        // ------------------------------------
+        const slider = document.getElementById('transformation-slider');
+        const sliderLabel = document.getElementById('slider-progress-label');
+        const statusBanner = document.getElementById('slider-status-banner');
+        const beforeCard = document.getElementById('before-card');
+        const afterCard = document.getElementById('after-card');
+        const toggleBtn = document.getElementById('slider-toggle-btn');
+
+        function updateSliderEffects(progress) {
+          sliderLabel.textContent = progress + '% Eduversum';
+          
+          // Update colors and texts of the status banner
+          if (progress < 30) {
+            statusBanner.textContent = 'Mentalidad Tradicional Pasiva';
+            statusBanner.className = 'mt-3 py-1.5 px-3 rounded-lg text-center font-mono text-xs font-bold border transition-all duration-300 bg-brand-red/10 border-brand-red/20 text-brand-red';
+          } else if (progress < 75) {
+            statusBanner.textContent = 'Pensador en Transición';
+            statusBanner.className = 'mt-3 py-1.5 px-3 rounded-lg text-center font-mono text-xs font-bold border transition-all duration-300 bg-brand-yellow/10 border-brand-yellow/20 text-brand-yellow';
+          } else {
+            statusBanner.textContent = 'Líder Transformador Eduversum';
+            statusBanner.className = 'mt-3 py-1.5 px-3 rounded-lg text-center font-mono text-xs font-bold border transition-all duration-300 bg-brand-green/10 border-brand-green/20 text-brand-green';
+          }
+
+          // Update card opacities based on mathematical weightings
+          const beforeOpacity = (100 - progress + 20) / 100;
+          const afterOpacity = (progress + 20) / 100;
+          
+          beforeCard.style.opacity = beforeOpacity;
+          afterCard.style.opacity = afterOpacity;
+        }
+
+        slider.addEventListener('input', function(e) {
+          updateSliderEffects(Number(e.target.value));
+        });
+
+        toggleBtn.addEventListener('click', function() {
+          const currentVal = Number(slider.value);
+          const newVal = currentVal === 100 ? 0 : 100;
+          slider.value = newVal;
+          updateSliderEffects(newVal);
+        });
+
+        // Initial trigger to sync opacities at startup (100)
+        updateSliderEffects(100);
+
+        // ----------------------------
+        // 3. El Destino Pillars click
+        // ----------------------------
+        const modal = document.getElementById('pillar-modal');
+        const modalIcon = document.getElementById('modal-pillar-icon');
+        const modalTitle = document.getElementById('modal-pillar-title');
+        const modalSummary = document.getElementById('modal-pillar-summary');
+        const modalDescription = document.getElementById('modal-pillar-description');
+        const closeBtn = document.getElementById('modal-close-btn');
+        const closeBottom = document.getElementById('modal-close-bottom');
+
+        const pillarsData = {
+          d1: {
+            title: 'INVESTIGA',
+            icon: 'search',
+            summary: 'Aprende a indagar con rigor',
+            description: 'En Eduversum los estudiantes no solo asimilan datos. Formulan hipótesis, buscan fuentes primarias fiables, detectan sesgos y construyen conocimiento sólido mediante experimentación activa.'
+          },
+          d2: {
+            title: 'CREA',
+            icon: 'pencil-ruler',
+            summary: 'Construye el mañana',
+            description: 'De consumidores a creadores interactivos. Desde prototipos robóticos hasta modelos de negocio responsables, dotamos a las personas de las herramientas técnicas y conceptuales para materializar sus ideas.'
+          },
+          d3: {
+            title: 'DEBATE',
+            icon: 'users',
+            summary: 'Contrastación constructiva de ideas',
+            description: 'Fomentamos seminarios socráticos y de debates estructurados. El objetivo no es ganar, sino contrastar argumentos con rigor ético, escuchar con atención y comprender múltiples dimensiones de un problema.'
+          },
+          d4: {
+            title: 'LIDERA',
+            icon: 'crown',
+            summary: 'Liderazgo humilde y empático',
+            description: 'Formamos líderes que inspiran desde la acción. Aprenden a comunicar ideas con elocuencia, de manera persuasiva, asertiva y movilizan activamente a equipos de trabajo colaborativo.'
+          },
+          d5: {
+            title: 'RESUELVE',
+            icon: 'calculator',
+            summary: 'Enfoque algorítmico y matemático',
+            description: 'Modelado y resolución de problemas complejos y abstractos. Dominan las ciencias exactas para descomponer desafíos globales en pequeñas piezas ejecutables que son resolubles en la práctica.'
+          },
+          d6: {
+            title: 'TRANSFORMA',
+            icon: 'globe',
+            summary: 'Evoluciona tu ecosistema',
+            description: 'El destino final de la educación es el impacto ecológico y social positivo. Diseñan e implementan proyectos socioambientales directos que transforman sus vecindarios y colegios.'
+          }
+        };
+
+        document.querySelectorAll('.pillar-card').forEach(card => {
+          card.addEventListener('click', function() {
+            const pillarId = this.getAttribute('data-pillar-id');
+            const data = pillarsData[pillarId];
+            if (data) {
+              modalTitle.textContent = data.title;
+              modalSummary.textContent = data.summary;
+              modalDescription.textContent = data.description;
+              
+              // Set icon attribute and recreate lucide instance
+              modalIcon.setAttribute('data-lucide', data.icon);
+              lucide.createIcons();
+
+              modal.classList.remove('hidden');
+            }
+          });
+        });
+
+        function closeModal() {
+          modal.classList.add('hidden');
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        closeBottom.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        // -------------------------
+        // 4. Interactive Mentalidad Quiz
+        // -------------------------
+        const quizQuestions = [
+          {
+            id: 1,
+            question: "Cuando te enfrentas a un tema nuevo en clase o trabajo, ¿cuál es tu primera prioridad?",
+            options: [
+              {
+                text: "Apuntar exactamente las diapositivas o palabras del profesor para memorizarlas tal cual antes del examen.",
+                score: 0,
+                explanation: "Mentalidad orientada a la respuesta rápida e inercia académica. Fomenta el olvido post-examen."
+              },
+              {
+                text: "Cuestionar el origen del tema, formular preguntas profundas y descubrir cómo se conecta con la vida real.",
+                score: 10,
+                explanation: "Mentalidad Eduversum: Pensar para comprender, transformando memorización pasiva en conocimiento práctico."
+              }
+            ]
+          },
+          {
+            id: 2,
+            question: "Si cometes un error grave al resolver un problema complejo, ¿cómo actúas?",
+            options: [
+              {
+                text: "Te frustras, buscas la respuesta directa sugerida por otro o prefieres que te digan 'el paso a paso' sin reflexionar.",
+                score: 0,
+                explanation: "Falta de transferencia cognitiva y evitación del error. Limita el desarrollo del razonamiento autónomo."
+              },
+              {
+                text: "Analizas el proceso erróneo, detectas la falla y la usas de andamiaje para conectar ideas de distintas áreas.",
+                score: 10,
+                explanation: "Ves el error como combustible cognitivo, una oportunidad científica para reformular tus hipótesis."
+              }
+            ]
+          },
+          {
+            id: 3,
+            question: "Al investigar una noticia, dato o afirmación popular de internet, ¿qué pasos tomas?",
+            options: [
+              {
+                text: "La compartes o aceptas como verdad absoluta directamente si encaja con tu opinión inicial, sin buscar evidencias claras.",
+                score: 0,
+                explanation: "Aceptación sin filtro de información externa. Una debilidad extendida ante contenidos sesgados o falsos."
+              },
+              {
+                text: "Buscas evidencias, analizas múltiples perspectivas con pensamiento crítico, descartando sesgos y noticias falsas.",
+                score: 10,
+                explanation: "Investigación autónoma con asertividad científica. La piedra angular del liderazgo informado contemporáneo."
+              }
+            ]
+          }
+        ];
+
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let selectedOptionIdx = null;
+
+        const progressText = document.getElementById('quiz-progress-text');
+        const questionText = document.getElementById('quiz-question-text');
+        const optionsList = document.getElementById('quiz-options-container');
+        const nextBtn = document.getElementById('quiz-next-btn');
+        
+        const questionsView = document.getElementById('quiz-questions-view');
+        const resultsView = document.getElementById('quiz-results-view');
+        
+        const scoreHolder = document.getElementById('results-thinking-percentage');
+        const profileTitle = document.getElementById('results-profile-title');
+        const profileDesc = document.getElementById('results-profile-desc');
+        const profileRec = document.getElementById('results-profile-rec');
+        const resetBtn = document.getElementById('quiz-reset-btn');
+
+        function renderQuizQuestion() {
+          const q = quizQuestions[currentQuestionIndex];
+          progressText.textContent = `PREGUNTA 0${currentQuestionIndex + 1} DE 0${quizQuestions.length}`;
+          questionText.textContent = q.question;
+          
+          // Clear options container
+          optionsList.innerHTML = '';
+          selectedOptionIdx = null;
+          
+          // Disable next btn styling
+          nextBtn.disabled = true;
+          nextBtn.className = 'px-6 py-2.5 rounded-xl font-bold flex items-center gap-1.5 transition text-xs uppercase bg-white/5 text-gray-500 cursor-not-allowed';
+
+          q.options.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'cursor-pointer border p-4 rounded-xl text-left text-sm font-semibold leading-relaxed transition-all duration-200 border-white/5 bg-white/2 text-gray-300 hover:bg-white/5 hover:border-white/10';
+            div.textContent = opt.text;
+            
+            div.addEventListener('click', function() {
+              // De-select previous item
+              document.querySelectorAll('#quiz-options-container > div').forEach(el => {
+                el.className = 'cursor-pointer border p-4 rounded-xl text-left text-sm font-semibold leading-relaxed transition-all duration-200 border-white/5 bg-white/2 text-gray-300 hover:bg-white/5 hover:border-white/10';
+              });
+              
+              // Select actual item
+              div.className = 'cursor-pointer border p-4 rounded-xl text-left text-sm font-semibold leading-relaxed transition-all duration-200 border-brand-pink bg-brand-pink/10 text-white shadow-lg';
+              selectedOptionIdx = idx;
+              
+              // Enable next btn styling
+              nextBtn.disabled = false;
+              nextBtn.className = 'px-6 py-2.5 rounded-xl font-bold flex items-center gap-1.5 transition text-xs uppercase bg-brand-pink text-white hover:brightness-110 cursor-pointer shadow-lg shadow-brand-pink/20';
+            });
+
+            optionsList.appendChild(div);
+          });
+        }
+
+        nextBtn.addEventListener('click', function() {
+          if (selectedOptionIdx === null) return;
+          
+          // Save score
+          const selectedScore = quizQuestions[currentQuestionIndex].options[selectedOptionIdx].score;
+          answers.push(selectedScore);
+          
+          if (currentQuestionIndex + 1 < quizQuestions.length) {
+            currentQuestionIndex++;
+            renderQuizQuestion();
+          } else {
+            // Finish and compute results
+            showQuizResults();
+          }
+        });
+
+        function showQuizResults() {
+          const totalScore = answers.reduce((a, b) => a + b, 0);
+          const maxPossible = quizQuestions.length * 10;
+          const thinkingIndex = Math.round((totalScore / maxPossible) * 100);
+
+          scoreHolder.textContent = thinkingIndex + '%';
+          
+          // Diagnostics profile mapping
+          if (thinkingIndex < 40) {
+            profileTitle.textContent = "Perfil: Pensador Rutinario Recitador";
+            profileDesc.textContent = "Tu mentalidad actual prioriza la asimilación mecánica y pasiva para complacer evaluaciones momentáneas. Sufres de vulnerabilidad al olvido acelerado y baja transferencia de ideas ante la vida real.";
+            profileRec.textContent = "Te beneficiará enormemente el pilar INVESTIGA y CREA de Eduversum para despertar tu chispa proactiva y aprender a estructurar hipótesis autónomas.";
+          } else if (thinkingIndex < 80) {
+            profileTitle.textContent = "Perfil: Explorador Crítico en Potencia";
+            profileDesc.textContent = "¡Felicidades! Tienes arraigados instintos de cuestionamiento activo. Sin embargo, en ocasiones el sistema te arrastra a memorizar y depender de pasos directos por miedo a equivocarte.";
+            profileRec.textContent = "Nuestros pilares DEBATE y RESUELVE te darán la oratoria, elocuencia matemática y lógica requeridas para pulir tu mentalidad y consolidarte como líder.";
+          } else {
+            profileTitle.textContent = "Perfil: Agente de Transformación Global";
+            profileDesc.textContent = "Posees una mentalidad sobresaliente y libre. Cuestionas las fuentes, analizas las evidencias pragmáticas de raíz y concebes soluciones innovadoras para problemas de tu entorno.";
+            profileRec.textContent = "El pilar LIDERA y TRANSFORMA de Eduversum acelerará tu camino conectándote con un ecosistema robusto de pensadores que ya están cambiando el mundo real.";
+          }
+
+          // Toggle views
+          questionsView.classList.add('hidden');
+          resultsView.classList.remove('hidden');
+        }
+
+        resetBtn.addEventListener('click', function() {
+          currentQuestionIndex = 0;
+          answers = [];
+          selectedOptionIdx = null;
+          
+          questionsView.classList.remove('hidden');
+          resultsView.classList.add('hidden');
+          
+          renderQuizQuestion();
+        });
+
+        // Initial launch of question
+        renderQuizQuestion();
+
+        // -----------------------
+        // 5. Waitlist Form Signup
+        // -----------------------
+        const signupForm = document.getElementById('waitlist-form');
+        const successView = document.getElementById('waitlist-success-view');
+        const successName = document.getElementById('success-reg-name');
+
+        signupForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const nameVal = document.getElementById('waitlist-name').value;
+          const roleVal = document.getElementById('waitlist-role').value;
+          const emailVal = document.getElementById('waitlist-email').value;
+
+          // Save waitlist submission locally
+          let saved = [];
+          try {
+            saved = JSON.parse(localStorage.getItem('eduversum_signups') || '[]');
+          } catch(err) {
+            saved = [];
+          }
+
+          saved.push({
+            name: nameVal,
+            role: roleVal,
+            email: emailVal,
+            date: new Date().toISOString()
+          });
+
+          localStorage.setItem('eduversum_signups', JSON.stringify(saved));
+          
+          // Show checks success card representation
+          successName.textContent = nameVal || 'Eduversario';
+          signupForm.classList.add('hidden');
+          successView.classList.remove('hidden');
+        });
+
+      });
+    </script>
   </body>
 </html>
-

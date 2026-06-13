@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Brain, Sparkles, Menu, X, ArrowUpRight } from 'lucide-react';
 import heroStudent from '../assets/images/hero_student_1781386925102.jpg';
-import eduversumLogo from '../assets/images/eduversum_puzzle_logo_1781389336382.jpg';
+import eduversumLogo from '../assets/images/eduversum_logo_1781386912599.jpg';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

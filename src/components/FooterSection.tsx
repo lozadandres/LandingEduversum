@@ -13,7 +13,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import pathOfFuture from '../assets/images/path_of_future_1781386978989.jpg';
-import eduversumLogo from '../assets/images/eduversum_puzzle_logo_1781389336382.jpg';
+import eduversumLogo from '../assets/images/eduversum_logo_1781386912599.jpg';
 import { BOTTOM_BADGES } from '../data';
 
 const getBadgeIcon = (name: string, className: string) => {
