@@ -1,0 +1,6 @@
+{
+  "name": "Eduversum",
+  "description": "Landing page de Eduversum centrada en el pensamiento crítico, la comprensión y la transformación educativa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
